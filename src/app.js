@@ -24,7 +24,7 @@ app.use(express.urlencoded());
 
 //маршрутизація
 //app.use("*", (req,res)=>{res.send(`Node JS test server`)});
-app.all("/book", bookRouter);
+app.use("/book", bookRouter);
 //запуск сервера 
 app.listen(port);
 

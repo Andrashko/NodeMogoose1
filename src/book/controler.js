@@ -31,7 +31,8 @@ const bookControler = {
         );
     }, //getById
     //додати нову
-    post: function (request, response) {      
+    post: function (request, response) {  
+        console.log("book")    
         const newBook = new Book(request.body.book);
         newBook.save()
         .then(book=>{
