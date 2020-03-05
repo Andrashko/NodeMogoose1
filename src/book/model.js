@@ -1,14 +1,20 @@
-import {Schema, model } from 'mongoose';
+import mongoose from 'mongoose';
+import Author from "../author/model.js";
 
-const bookSchema = new Schema({
+const bookSchema = new mongoose.Schema({
     title: {
         type:String,
         required: true
     },
-    author: String,
+    author: [{
+        type: mongoose.Types.ObjectId,
+        model: Author,
+        ref:"Author"
+    }]
+
 
 });
 
-const Book = model("Book", bookSchema);
+const Book = mongoose.model("Book", bookSchema);
 
 export default Book;

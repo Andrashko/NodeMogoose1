@@ -1,6 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import bookRouter from "./book"
+import authorRouter from "./author";
 
 //новий екземпляр додатку 
 const app = express();
@@ -25,6 +26,7 @@ app.use(express.urlencoded());
 //маршрутизація
 //app.use("*", (req,res)=>{res.send(`Node JS test server`)});
 app.use("/book", bookRouter);
+app.use("/author", authorRouter);
 //запуск сервера 
 app.listen(port);
 

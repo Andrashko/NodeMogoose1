@@ -1,11 +1,12 @@
 import Book from "./model"
 import mongoose from "mongoose"
+import Author from "../author/model";
 
 
 const bookControler = {
     //отримати всі
     get: function (request, response) {
-        Book.find()
+        Book.find().populate("author")
         .then(books=>{
                 response.send(books);
         })
@@ -57,7 +58,17 @@ const bookControler = {
             }
         )
     },//deleteById
-
+    init: async (req,res) =>{
+        console.log("init");
+        let shevchenko = await Author.findOne({Name:"Shevchenko"});
+        console.log(shevchenko);
+        let b1 = new Book({
+            title: "Kobzar",
+            author: shevchenko._id
+        });
+        await b1.save();
+        res.send(b1);
+    }
 }
 //валідатор чи є в книги назва  і автор
 function isValid(book) {
