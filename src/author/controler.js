@@ -1,6 +1,7 @@
 import Author from "./model.js";
 
 const authorControler = {
+    //перший спосіб на колбеках
     get1: (req, res) => {
         Author.find((err, result) => {
             if (err) {
@@ -12,6 +13,7 @@ const authorControler = {
             }
         });
     },
+    //другий спосіб на промісах
     get2: (req, res) => {
         Author.find().then(
             result => res.send(result)
@@ -22,6 +24,7 @@ const authorControler = {
             }
         )
     },
+    //третій спосіб на асинхронних функціях
     get3: async (req, res) => {
         try {
             let authorsList = await Author.find();
@@ -31,6 +34,8 @@ const authorControler = {
             res.status(500).send(err);
         }
     },
+
+    //ініціалізація авторів 
     init: async (req, res) => {
         let n = await Author.find().count();
         console.log(n);
@@ -50,6 +55,8 @@ const authorControler = {
         }
         res.send("intialised");
     }
+
+    //тут треба методи patch, post, delete
 };
 
 export default authorControler;

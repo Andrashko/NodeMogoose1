@@ -34,7 +34,7 @@ const bookControler = {
     //додати нову
     post: function (request, response) {  
         console.log("book")    
-        const newBook = new Book(request.body.book);
+        const newBook = new Book(request.body);
         newBook.save()
         .then(book=>{
             response.send(book);    
@@ -68,11 +68,22 @@ const bookControler = {
         });
         await b1.save();
         res.send(b1);
+    },
+    //функція оновлення
+    async patch(req, res) {
+        try {
+            const book = await Book.findByIdAndUpdate(req.params.id, req.body,  {new: true});
+            if (!book)
+                res.status(404).send("Not found");
+            await book.save();
+            res.send(book);
+        } catch (error) {
+            res.status(500).send(error);
+        }
     }
+
+    
 }
-//валідатор чи є в книги назва  і автор
-function isValid(book) {
-    return book && book.title && book.author;
-}
+
 
 export default bookControler;
